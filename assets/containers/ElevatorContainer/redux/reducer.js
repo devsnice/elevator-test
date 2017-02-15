@@ -1,5 +1,12 @@
 import ELEVATOR from './actions.js';
 
+// Solution of the second task consist in change of a  nextFloors array structure,
+// instead of saving only the number of a floor we will hold information about direction of moving - to down or to up
+// and in depends on situation open the elevator only when it goes up or goes down
+
+// for correct working we will normalize the shape of array for our components
+
+
 const elevatorInitialState = {
     currentFloor: 1,
     nextFloors: [],
