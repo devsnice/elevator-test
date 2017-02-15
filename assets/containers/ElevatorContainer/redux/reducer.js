@@ -13,14 +13,8 @@ function elevator(state = elevatorInitialState, action) {
   switch (action.type) {
     case ELEVATOR.MOVE:
       if(action.payload.elevatorDirection) {
-          //action.payload.elevatorDirection == "up" ? newState.currentFloor++ : newState.currentFloor--;
-          if(action.payload.elevatorDirection == "up") {
-              newState.currentFloor++;
-          }
 
-          if(action.payload.elevatorDirection == "down") {
-              newState.currentFloor--;
-          }
+          newState.currentFloor = action.payload.currentFloor;
 
           // elevator on the one of called floors
           if(newState.nextFloors.includes(newState.currentFloor)) {

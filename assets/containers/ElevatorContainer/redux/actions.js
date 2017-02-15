@@ -21,9 +21,11 @@ export function tryToMoveElevator() {
            if(currentFloor !== nextElevatorFloor) {
                if(currentFloor < nextElevatorFloor) {
                  elevatorDirection = "up";
+                 currentFloor++;
                }
                else {
                  elevatorDirection = "down";
+                 currentFloor--;
              }
            }
            else {
@@ -32,7 +34,7 @@ export function tryToMoveElevator() {
         }
 
         // If the elevator will move to one of directions and open the door it would close doors
-        if(elevatorDirection) {
+        if(nextFloors.includes(currentFloor)) {
           dispatch(openElevatorDoor());
 
           setTimeout(() => {
@@ -43,7 +45,8 @@ export function tryToMoveElevator() {
         dispatch({
             type: ELEVATOR.MOVE,
             payload: {
-              elevatorDirection
+              elevatorDirection,
+              currentFloor
             }
         });
     }

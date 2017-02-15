@@ -23707,10 +23707,10 @@
 /* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _actions = __webpack_require__(216);
@@ -23722,58 +23722,52 @@
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	var elevatorInitialState = {
-	    currentFloor: 1,
-	    nextFloors: [],
-	    isOpen: false,
-	    speedInSeconds: 1500
+	  currentFloor: 1,
+	  nextFloors: [],
+	  isOpen: false,
+	  speedInSeconds: 1500
 	};
 
 	function elevator() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : elevatorInitialState;
-	    var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : elevatorInitialState;
+	  var action = arguments[1];
 
-	    var newState = Object.assign({}, state);
+	  var newState = Object.assign({}, state);
 
-	    switch (action.type) {
-	        case _actions2.default.MOVE:
-	            if (action.payload.elevatorDirection) {
-	                //action.payload.elevatorDirection == "up" ? newState.currentFloor++ : newState.currentFloor--;
-	                if (action.payload.elevatorDirection == "up") {
-	                    newState.currentFloor++;
-	                }
+	  switch (action.type) {
+	    case _actions2.default.MOVE:
+	      if (action.payload.elevatorDirection) {
 
-	                if (action.payload.elevatorDirection == "down") {
-	                    newState.currentFloor--;
-	                }
+	        newState.currentFloor = action.payload.currentFloor;
 
-	                // elevator on the one of called floors
-	                if (newState.nextFloors.includes(newState.currentFloor)) {
-	                    var indexOfFloorInArray = newState.nextFloors.indexOf(newState.currentFloor);
+	        // elevator on the one of called floors
+	        if (newState.nextFloors.includes(newState.currentFloor)) {
+	          var indexOfFloorInArray = newState.nextFloors.indexOf(newState.currentFloor);
 
-	                    newState.nextFloors = [].concat(_toConsumableArray(newState.nextFloors.slice(0, indexOfFloorInArray)), _toConsumableArray(newState.nextFloors.slice(indexOfFloorInArray + 1)));
-	                }
-	            }
+	          newState.nextFloors = [].concat(_toConsumableArray(newState.nextFloors.slice(0, indexOfFloorInArray)), _toConsumableArray(newState.nextFloors.slice(indexOfFloorInArray + 1)));
+	        }
+	      }
 
-	            return newState;
+	      return newState;
 
-	        case _actions2.default.CALL:
-	            newState.nextFloors = [].concat(_toConsumableArray(newState.nextFloors), [action.floorNumber]);
+	    case _actions2.default.CALL:
+	      newState.nextFloors = [].concat(_toConsumableArray(newState.nextFloors), [action.floorNumber]);
 
-	            return newState;
+	      return newState;
 
-	        case _actions2.default.OPEN:
-	            newState.isOpen = true;
+	    case _actions2.default.OPEN:
+	      newState.isOpen = true;
 
-	            return newState;
+	      return newState;
 
-	        case _actions2.default.CLOSE:
-	            newState.isOpen = false;
+	    case _actions2.default.CLOSE:
+	      newState.isOpen = false;
 
-	            return newState;
+	      return newState;
 
-	        default:
-	            return newState;
-	    }
+	    default:
+	      return newState;
+	  }
 	}
 
 	exports.default = elevator;
@@ -23816,8 +23810,10 @@
 	      if (currentFloor !== nextElevatorFloor) {
 	        if (currentFloor < nextElevatorFloor) {
 	          elevatorDirection = "up";
+	          currentFloor++;
 	        } else {
 	          elevatorDirection = "down";
+	          currentFloor--;
 	        }
 	      } else {
 	        elevatorDirection = "onFloor";
@@ -23825,7 +23821,7 @@
 	    }
 
 	    // If the elevator will move to one of directions and open the door it would close doors
-	    if (elevatorDirection) {
+	    if (nextFloors.includes(currentFloor)) {
 	      dispatch(openElevatorDoor());
 
 	      setTimeout(function () {
@@ -23836,7 +23832,8 @@
 	    dispatch({
 	      type: ELEVATOR.MOVE,
 	      payload: {
-	        elevatorDirection: elevatorDirection
+	        elevatorDirection: elevatorDirection,
+	        currentFloor: currentFloor
 	      }
 	    });
 	  };
