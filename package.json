@@ -12,6 +12,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "babel-preset-es2016": "^6.22.0",
     "connect": "^3.4.1",
     "css-loader": "^0.23.1",
     "jquery": "^3.1.0",
@@ -20,6 +21,8 @@
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-thunk": "^2.2.0",
     "sass-loader": "^3.2.0",
     "serve-static": "^1.10.2",
     "style-loader": "^0.13.1"

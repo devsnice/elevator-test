@@ -6,8 +6,10 @@ var autoprefixer = require('autoprefixer');
 
 var SvgStore = require('webpack-svgstore-plugin');
 
+const SOURCE_PATH =  __dirname + '/assets';
+
 module.exports = {
-  context: __dirname + '/assets',
+  context: SOURCE_PATH,
   entry: [
     './index.js',
     'file?name=../index.html!slm!./index.slim'
@@ -28,7 +30,7 @@ module.exports = {
         include: __dirname + '/assets',
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015', 'es2016', 'react'],
           plugins: ['transform-class-properties']
         },
       },
@@ -59,8 +61,18 @@ module.exports = {
           })
         ]
       }
-    ]
+    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.js$/,
+    //     loaders: ['eslint'],
+    //     include: [SOURCE_PATH]
+    //   }
+    // ]
   },
+  // eslint: {
+  //   configFile: './assets/.eslintrc.yml'
+  // },
   sassLoader: {
     includePaths: [
       path.join(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets')
@@ -79,6 +91,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       React: 'react',
+      cn: 'classnames'
     }),
     new BrowserSyncPlugin({
       host: 'localhost',
