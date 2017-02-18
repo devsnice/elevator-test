@@ -1,11 +1,10 @@
-
 const ElevatorBoard = ({ currentFloor }) => (
   <div className="elevator__board">
     {currentFloor}
   </div>
-   );
+);
 
-const Elevator = ({ isOpen, currentFloor }) => {
+const Elevator = ({ isOpen, currentFloor, children }) => {
   const elClassName = cn(['elevator', { 'elevator--open': isOpen }]);
 
   return (
@@ -15,6 +14,8 @@ const Elevator = ({ isOpen, currentFloor }) => {
       </div>
 
       <ElevatorBoard currentFloor={currentFloor} />
+
+      {children}
     </div>
   );
 };

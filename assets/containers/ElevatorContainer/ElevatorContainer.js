@@ -1,4 +1,3 @@
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -7,22 +6,12 @@ import { bindActionCreators } from 'redux';
 import Elevator from '../../components/Elevator/Elevator.js';
 import ElevatorPanel from '../../components/ElevatorPanel/ElevatorPanel.js';
 import ElevatorFloors from '../../components/ElevatorFloors/ElevatorFloors.js';
+import ElevatorProcessor from '../../components/ElevatorProcessor/ElevatorProcessor.js';
 
 // actions
 import * as evelatorActions from './redux/actions.js';
 
 class ElevatorContainer extends React.Component {
-  componentDidMount() {
-    // it isn't a right solution, we should run this timeout only when somebody calls the elevator
-    this.elevatorInterval = setInterval(() => {
-      this.actionNextFloor();
-    }, this.props.elevator.speedInSeconds);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.elevatorInterval);
-  }
-
   actionNextFloor = () => {
     this.props.actions.tryToMoveElevator();
   }
@@ -39,7 +28,13 @@ class ElevatorContainer extends React.Component {
         <Elevator
           isOpen={elevator.isOpen}
           currentFloor={elevator.currentFloor}
-        />
+        >
+          <ElevatorProcessor
+            nextFloors = {elevator.nextFloors}
+            speedInSeconds = {elevator.speedInSeconds}
+            actionNextFloor = {this.actionNextFloor}
+          />
+        </Elevator>
 
         <ElevatorPanel
           actionCallToFloor={this.actionCallToFloor}
