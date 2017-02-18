@@ -1,25 +1,22 @@
 
-const ElevatorBoard = ({currentFloor}) => {
-   return (
-     <div className="elevator__board">
-        {currentFloor}
-     </div>
-   )
-}
+const ElevatorBoard = ({ currentFloor }) => (
+  <div className="elevator__board">
+    {currentFloor}
+  </div>
+   );
 
-const Elevator = ({isOpen, currentFloor}) => {
+const Elevator = ({ isOpen, currentFloor }) => {
+  const elClassName = cn(['elevator', { 'elevator--open': isOpen }]);
 
-  const elClassName = cn(["elevator", {"elevator--open": isOpen}]);
-
-  return(
+  return (
     <div className={elClassName}>
-        <div className="elevator__people">
-          <img src="public/images/hangover.jpg" alt="" />
-        </div>
+      <div className="elevator__people">
+        <img src="public/images/hangover.jpg" alt="" />
+      </div>
 
-        <ElevatorBoard currentFloor = {currentFloor}/>
+      <ElevatorBoard currentFloor={currentFloor} />
     </div>
-  )
-}
+  );
+};
 
 export default Elevator;

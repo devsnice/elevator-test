@@ -23721,6 +23721,13 @@
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+	// Solution of the second task consist in change of a  nextFloors array structure,
+	// instead of saving only the number of a floor we will hold information about direction of moving - to down or to up
+	// and in depends on situation open the elevator only when it goes up or goes down
+
+	// for correct working we will normalize the shape of array for our components
+
+
 	var elevatorInitialState = {
 	  currentFloor: 1,
 	  nextFloors: [],
@@ -23737,7 +23744,6 @@
 	  switch (action.type) {
 	    case _actions2.default.MOVE:
 	      if (action.payload.elevatorDirection) {
-
 	        newState.currentFloor = action.payload.currentFloor;
 
 	        // elevator on the one of called floors
@@ -23776,7 +23782,7 @@
 /* 216 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -23786,17 +23792,16 @@
 	exports.openElevatorDoor = openElevatorDoor;
 	exports.closeElevatorDoor = closeElevatorDoor;
 	var ELEVATOR = {
-	  MOVE: "ELEVATOR_MOVE",
-	  CALL: "ELEVATOR_CALL",
-	  OPEN: "ELEVATOR_OPEN",
-	  CLOSE: "ELEVATOR_CLOSE"
+	  MOVE: 'ELEVATOR_MOVE',
+	  CALL: 'ELEVATOR_CALL',
+	  OPEN: 'ELEVATOR_OPEN',
+	  CLOSE: 'ELEVATOR_CLOSE'
 	};
 
 	function tryToMoveElevator() {
-
 	  return function (dispatch, getState) {
-	    var elevator = getState(),
-	        currentFloor = elevator.currentFloor,
+	    var elevator = getState();
+	    var currentFloor = elevator.currentFloor,
 	        nextFloors = elevator.nextFloors,
 	        speedInSeconds = elevator.speedInSeconds;
 
@@ -23809,14 +23814,14 @@
 
 	      if (currentFloor !== nextElevatorFloor) {
 	        if (currentFloor < nextElevatorFloor) {
-	          elevatorDirection = "up";
+	          elevatorDirection = 'up';
 	          currentFloor++;
 	        } else {
-	          elevatorDirection = "down";
+	          elevatorDirection = 'down';
 	          currentFloor--;
 	        }
 	      } else {
-	        elevatorDirection = "onFloor";
+	        elevatorDirection = 'onFloor';
 	      }
 	    }
 
@@ -23840,9 +23845,8 @@
 	}
 
 	function callToFloorElevator(floorNumber) {
-
 	  if (!floorNumber) {
-	    console.error(new Error("floorNumber param is requered"));
+	    console.error(new Error('floorNumber param is requered'));
 	  }
 
 	  return {
@@ -24779,20 +24783,22 @@
 	var ElevatorContainer = function (_React$Component) {
 	  _inherits(ElevatorContainer, _React$Component);
 
-	  function ElevatorContainer(props) {
+	  function ElevatorContainer() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, ElevatorContainer);
 
-	    var _this = _possibleConstructorReturn(this, (ElevatorContainer.__proto__ || Object.getPrototypeOf(ElevatorContainer)).call(this, props));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    _this.actionNextFloor = function () {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ElevatorContainer.__proto__ || Object.getPrototypeOf(ElevatorContainer)).call.apply(_ref, [this].concat(args))), _this), _this.actionNextFloor = function () {
 	      _this.props.actions.tryToMoveElevator();
-	    };
-
-	    _this.actionCallToFloor = function (floorNumber) {
+	    }, _this.actionCallToFloor = function (floorNumber) {
 	      _this.props.actions.callToFloorElevator(floorNumber);
-	    };
-
-	    return _this;
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(ElevatorContainer, [{
@@ -24859,7 +24865,7 @@
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(React, cn) {"use strict";
+	/* WEBPACK VAR INJECTION */(function(React, cn) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -24867,10 +24873,9 @@
 
 	var ElevatorBoard = function ElevatorBoard(_ref) {
 	  var currentFloor = _ref.currentFloor;
-
 	  return React.createElement(
-	    "div",
-	    { className: "elevator__board" },
+	    'div',
+	    { className: 'elevator__board' },
 	    currentFloor
 	  );
 	};
@@ -24879,16 +24884,15 @@
 	  var isOpen = _ref2.isOpen,
 	      currentFloor = _ref2.currentFloor;
 
-
-	  var elClassName = cn(["elevator", { "elevator--open": isOpen }]);
+	  var elClassName = cn(['elevator', { 'elevator--open': isOpen }]);
 
 	  return React.createElement(
-	    "div",
+	    'div',
 	    { className: elClassName },
 	    React.createElement(
-	      "div",
-	      { className: "elevator__people" },
-	      React.createElement("img", { src: "public/images/hangover.jpg", alt: "" })
+	      'div',
+	      { className: 'elevator__people' },
+	      React.createElement('img', { src: 'public/images/hangover.jpg', alt: '' })
 	    ),
 	    React.createElement(ElevatorBoard, { currentFloor: currentFloor })
 	  );
@@ -24958,7 +24962,7 @@
 	/* WEBPACK VAR INJECTION */(function(cn, React) {"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -24970,74 +24974,73 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ElevatorPanelButton = function ElevatorPanelButton(_ref) {
-	    var floorNumber = _ref.floorNumber,
-	        isActive = _ref.isActive,
-	        _onClick = _ref.onClick;
+	  var floorNumber = _ref.floorNumber,
+	      isActive = _ref.isActive,
+	      _onClick = _ref.onClick;
 
+	  var elClassName = cn(['elevator__button', { active: isActive }]);
 
-	    var elClassName = cn(["elevator__button", { "active": isActive }]);
-
-	    return React.createElement(
-	        "div",
-	        { className: elClassName, onClick: function onClick() {
-	                !isActive && _onClick(floorNumber);
-	            } },
-	        floorNumber
-	    );
+	  return React.createElement(
+	    "div",
+	    { className: elClassName, onClick: function onClick() {
+	        !isActive && _onClick(floorNumber);
+	      } },
+	    floorNumber
+	  );
 	};
 
 	var ElevatorPanel = function (_React$Component) {
-	    _inherits(ElevatorPanel, _React$Component);
+	  _inherits(ElevatorPanel, _React$Component);
 
-	    function ElevatorPanel() {
-	        _classCallCheck(this, ElevatorPanel);
+	  function ElevatorPanel() {
+	    _classCallCheck(this, ElevatorPanel);
 
-	        return _possibleConstructorReturn(this, (ElevatorPanel.__proto__ || Object.getPrototypeOf(ElevatorPanel)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (ElevatorPanel.__proto__ || Object.getPrototypeOf(ElevatorPanel)).apply(this, arguments));
+	  }
+
+	  _createClass(ElevatorPanel, [{
+	    key: "render",
+	    value: function render() {
+	      var _props = this.props,
+	          actionCallToFloor = _props.actionCallToFloor,
+	          nextFloors = _props.nextFloors;
+
+
+	      return React.createElement(
+	        "div",
+	        { className: "elevator__panel" },
+	        React.createElement(ElevatorPanelButton, {
+	          floorNumber: 5,
+	          isActive: nextFloors.includes(5),
+	          onClick: actionCallToFloor
+	        }),
+	        React.createElement("br", null),
+	        React.createElement(ElevatorPanelButton, {
+	          floorNumber: 3,
+	          isActive: nextFloors.includes(3),
+	          onClick: actionCallToFloor
+	        }),
+	        React.createElement(ElevatorPanelButton, {
+	          floorNumber: 4,
+	          isActive: nextFloors.includes(4),
+	          onClick: actionCallToFloor
+	        }),
+	        React.createElement("br", null),
+	        React.createElement(ElevatorPanelButton, {
+	          floorNumber: 1,
+	          isActive: nextFloors.includes(1),
+	          onClick: actionCallToFloor
+	        }),
+	        React.createElement(ElevatorPanelButton, {
+	          floorNumber: 2,
+	          isActive: nextFloors.includes(2),
+	          onClick: actionCallToFloor
+	        })
+	      );
 	    }
+	  }]);
 
-	    _createClass(ElevatorPanel, [{
-	        key: "render",
-	        value: function render() {
-	            var _props = this.props,
-	                actionCallToFloor = _props.actionCallToFloor,
-	                nextFloors = _props.nextFloors;
-
-
-	            return React.createElement(
-	                "div",
-	                { className: "elevator__panel" },
-	                React.createElement(ElevatorPanelButton, {
-	                    floorNumber: 5,
-	                    isActive: nextFloors.includes(5),
-	                    onClick: actionCallToFloor
-	                }),
-	                React.createElement("br", null),
-	                React.createElement(ElevatorPanelButton, {
-	                    floorNumber: 3,
-	                    isActive: nextFloors.includes(3),
-	                    onClick: actionCallToFloor
-	                }),
-	                React.createElement(ElevatorPanelButton, {
-	                    floorNumber: 4,
-	                    isActive: nextFloors.includes(4),
-	                    onClick: actionCallToFloor
-	                }),
-	                React.createElement("br", null),
-	                React.createElement(ElevatorPanelButton, {
-	                    floorNumber: 1,
-	                    isActive: nextFloors.includes(1),
-	                    onClick: actionCallToFloor
-	                }),
-	                React.createElement(ElevatorPanelButton, {
-	                    floorNumber: 2,
-	                    isActive: nextFloors.includes(2),
-	                    onClick: actionCallToFloor
-	                })
-	            );
-	        }
-	    }]);
-
-	    return ElevatorPanel;
+	  return ElevatorPanel;
 	}(React.Component);
 
 	exports.default = ElevatorPanel;
@@ -25064,7 +25067,6 @@
 	var ElevatorFloor = function ElevatorFloor(_ref) {
 	  var floorIndex = _ref.floorIndex,
 	      actionClick = _ref.actionClick;
-
 	  return React.createElement(
 	    "div",
 	    { className: "elevator__panel" },

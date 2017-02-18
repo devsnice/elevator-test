@@ -1,3 +1,4 @@
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -10,17 +11,12 @@ import ElevatorFloors from '../../components/ElevatorFloors/ElevatorFloors.js';
 // actions
 import * as evelatorActions from './redux/actions.js';
 
-
 class ElevatorContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     // it isn't a right solution, we should run this timeout only when somebody calls the elevator
-     this.elevatorInterval = setInterval(() => {
-        this.actionNextFloor();
-     }, this.props.elevator.speedInSeconds);
+    this.elevatorInterval = setInterval(() => {
+      this.actionNextFloor();
+    }, this.props.elevator.speedInSeconds);
   }
 
   componentWillUnmount() {
@@ -32,45 +28,39 @@ class ElevatorContainer extends React.Component {
   }
 
   actionCallToFloor = (floorNumber) => {
-     this.props.actions.callToFloorElevator(floorNumber);
+    this.props.actions.callToFloorElevator(floorNumber);
   }
 
   render() {
-    let {elevator, actions} = this.props;
+    const { elevator, actions } = this.props;
 
     return (
       <section className="flex-row align-center justify-center" style={{ height: '100%' }}>
         <Elevator
-          isOpen = {elevator.isOpen}
-          currentFloor = {elevator.currentFloor}
+          isOpen={elevator.isOpen}
+          currentFloor={elevator.currentFloor}
         />
 
         <ElevatorPanel
-          actionCallToFloor = {this.actionCallToFloor}
-          nextFloors = {elevator.nextFloors}
+          actionCallToFloor={this.actionCallToFloor}
+          nextFloors={elevator.nextFloors}
         />
 
         <ElevatorFloors
-          actions = {actions}
-          nextFloors = {elevator.nextFloors}
+          actions={actions}
+          nextFloors={elevator.nextFloors}
         />
       </section>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    elevator: state
-  }
-}
+const mapStateToProps = state => ({
+  elevator: state,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(evelatorActions, dispatch)
-  }
-}
-
-
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(evelatorActions, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ElevatorContainer);

@@ -62,17 +62,18 @@ module.exports = {
         ]
       }
     ],
-    // preLoaders: [
-    //   {
-    //     test: /\.js$/,
-    //     loaders: ['eslint'],
-    //     include: [SOURCE_PATH]
-    //   }
-    // ]
+    // FIX: npm i eslint-loader -D
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loaders: ['eslint-loader'],
+        include: [SOURCE_PATH]
+      }
+    ]
   },
-  // eslint: {
-  //   configFile: './assets/.eslintrc.yml'
-  // },
+  eslint: {
+    configFile: './assets/.eslintrc.yml'
+  },
   sassLoader: {
     includePaths: [
       path.join(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets')

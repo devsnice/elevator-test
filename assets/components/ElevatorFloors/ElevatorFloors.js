@@ -1,27 +1,24 @@
-const ElevatorFloor = ({floorIndex, actionClick}) => {
-  return (
-     <div className="elevator__panel">
-        <div className="elevator__button elevator__button--lg">up</div>
-        <br />
-        <div className="elevator__button elevator__button--lg">down</div>
-      </div>
-  )
-}
+
+const ElevatorFloor = ({ floorIndex, actionClick }) => (
+  <div className="elevator__panel">
+    <div className="elevator__button elevator__button--lg">up</div>
+    <br />
+    <div className="elevator__button elevator__button--lg">down</div>
+  </div>
+  );
 
 class ElevatorFloors extends React.Component {
   render() {
-    return(
+    return (
       <div className="elevator__floors">
-          {[5, 4, 3, 2, 1].map(floorIndex => {
-            return (
-              <ElevatorFloor
-                floorIndex = {floorIndex}
-                key = {floorIndex}
-              />
-            )
-          })}
+        { [5, 4, 3, 2, 1].map(floorIndex => (
+          <ElevatorFloor
+            floorIndex={floorIndex}
+            key={floorIndex}
+          />
+            ))}
       </div>
-    )
+    );
   }
 }
 

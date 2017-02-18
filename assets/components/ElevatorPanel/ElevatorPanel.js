@@ -1,50 +1,49 @@
-const ElevatorPanelButton = ({floorNumber, isActive, onClick}) => {
-
-  const elClassName = cn(["elevator__button", {"active": isActive}]);
+const ElevatorPanelButton = ({ floorNumber, isActive, onClick }) => {
+  const elClassName = cn(['elevator__button', { active: isActive }]);
 
   return (
-    <div className={elClassName} onClick = {() => {!isActive && onClick(floorNumber)}}>
-        {floorNumber}
+    <div className={elClassName} onClick={() => { !isActive && onClick(floorNumber); }}>
+      {floorNumber}
     </div>
-  )
-}
+  );
+};
 
 class ElevatorPanel extends React.Component {
 
   render() {
-    let {actionCallToFloor, nextFloors} = this.props;
+    const { actionCallToFloor, nextFloors } = this.props;
 
-    return(
+    return (
       <div className="elevator__panel">
         <ElevatorPanelButton
-            floorNumber = {5}
-            isActive = {nextFloors.includes(5)}
-            onClick = {actionCallToFloor}
+          floorNumber={5}
+          isActive={nextFloors.includes(5)}
+          onClick={actionCallToFloor}
         />
         <br />
         <ElevatorPanelButton
-            floorNumber = {3}
-            isActive = {nextFloors.includes(3)}
-            onClick = {actionCallToFloor}
+          floorNumber={3}
+          isActive={nextFloors.includes(3)}
+          onClick={actionCallToFloor}
         />
         <ElevatorPanelButton
-            floorNumber = {4}
-            isActive = {nextFloors.includes(4)}
-            onClick = {actionCallToFloor}
+          floorNumber={4}
+          isActive={nextFloors.includes(4)}
+          onClick={actionCallToFloor}
         />
         <br />
         <ElevatorPanelButton
-            floorNumber = {1}
-            isActive = {nextFloors.includes(1)}
-            onClick = {actionCallToFloor}
+          floorNumber={1}
+          isActive={nextFloors.includes(1)}
+          onClick={actionCallToFloor}
         />
         <ElevatorPanelButton
-            floorNumber = {2}
-            isActive = {nextFloors.includes(2)}
-            onClick = {actionCallToFloor}
+          floorNumber={2}
+          isActive={nextFloors.includes(2)}
+          onClick={actionCallToFloor}
         />
       </div>
-    )
+    );
   }
 }
 

@@ -8,29 +8,27 @@ import ELEVATOR from './actions.js';
 
 
 const elevatorInitialState = {
-    currentFloor: 1,
-    nextFloors: [],
-    isOpen: false,
-    speedInSeconds: 1500
+  currentFloor: 1,
+  nextFloors: [],
+  isOpen: false,
+  speedInSeconds: 1500,
 };
 
 function elevator(state = elevatorInitialState, action) {
-  let newState = Object.assign({}, state);
+  const newState = Object.assign({}, state);
 
   switch (action.type) {
     case ELEVATOR.MOVE:
-      if(action.payload.elevatorDirection) {
-
-          newState.currentFloor = action.payload.currentFloor;
+      if (action.payload.elevatorDirection) {
+        newState.currentFloor = action.payload.currentFloor;
 
           // elevator on the one of called floors
-          if(newState.nextFloors.includes(newState.currentFloor)) {
-              let indexOfFloorInArray = newState.nextFloors.indexOf(newState.currentFloor);
+        if (newState.nextFloors.includes(newState.currentFloor)) {
+          const indexOfFloorInArray = newState.nextFloors.indexOf(newState.currentFloor);
 
-              newState.nextFloors = [...newState.nextFloors.slice(0, indexOfFloorInArray),
-                                    ...newState.nextFloors.slice(indexOfFloorInArray+1)];
-
-          }
+          newState.nextFloors = [...newState.nextFloors.slice(0, indexOfFloorInArray),
+            ...newState.nextFloors.slice(indexOfFloorInArray + 1)];
+        }
       }
 
       return newState;
@@ -41,9 +39,9 @@ function elevator(state = elevatorInitialState, action) {
       return newState;
 
     case ELEVATOR.OPEN:
-        newState.isOpen = true;
+      newState.isOpen = true;
 
-        return newState;
+      return newState;
 
     case ELEVATOR.CLOSE:
       newState.isOpen = false;
@@ -51,7 +49,7 @@ function elevator(state = elevatorInitialState, action) {
       return newState;
 
     default:
-      return newState
+      return newState;
   }
 }
 
