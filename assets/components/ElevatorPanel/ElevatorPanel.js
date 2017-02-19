@@ -2,13 +2,25 @@ const ElevatorPanelButton = ({ floorNumber, isActive, onClick }) => {
   const elClassName = cn(['elevator__button', { active: isActive }]);
 
   return (
-    <div className={elClassName} onClick={() => { !isActive && onClick(floorNumber); }}>
+    <div
+      className={elClassName} onClick={() => {
+        !isActive && onClick({
+          number: floorNumber,
+          direction: 'onFloor',
+        });
+      }}
+    >
       {floorNumber}
     </div>
   );
 };
 
 class ElevatorPanel extends React.Component {
+
+  static propTypes = {
+    nextFloors: React.PropTypes.array,
+    actionCallToFloor: React.PropTypes.func,
+  }
 
   render() {
     const { actionCallToFloor, nextFloors } = this.props;

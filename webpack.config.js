@@ -31,7 +31,7 @@ module.exports = {
         loader: 'babel',
         query: {
           presets: ['es2015', 'es2016', 'react'],
-          plugins: ['transform-class-properties']
+          plugins: ['transform-class-properties', 'transform-object-rest-spread']
         },
       },
       {
@@ -62,7 +62,7 @@ module.exports = {
         ]
       }
     ],
-    // FIX: npm i eslint-loader -D
+    //FIX: npm i eslint-loader -D
     preLoaders: [
       {
         test: /\.js$/,
